@@ -18,7 +18,9 @@ export default class Handler {
 			if (!command) return;
 
 			const [cmd, func, args] = command;
-			const method = this.app[func];
+			const normalizedFunc = func.toLowerCase();
+
+			const method = this.app[normalizedFunc];
 
 			if (!method)
 				return;
@@ -28,7 +30,7 @@ export default class Handler {
 				args,
 			};
 
-			this.app[func](ctx);
+			this.app[normalizedFunc](ctx);
 		});
 	}
 
