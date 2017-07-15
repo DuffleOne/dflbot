@@ -63,7 +63,7 @@ export default class Handler {
 		const friendlyMessage = errorCodes[errorCode];
 
 		if (!friendlyMessage)
-			return 'Something went wrong :S Not sure about it!';
+			return `Uncaught error code: ${errorCode}`;
 
 		return friendlyMessage;
 	}

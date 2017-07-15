@@ -1,4 +1,5 @@
 {
+	"traditional_error": "Something went wrong, this is awkward.",
 	"expected_error": "You triggered this error!",
 	"unknown_channel": "What channel? Join one yourself, or use !join <channel>",
 	"channel_not_found": "I can't find that channel :S",
