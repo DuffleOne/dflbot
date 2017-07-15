@@ -7,6 +7,7 @@ export default class App {
 		this.client = client; // Discord SDK
 		this.musicFolder = musicFolder; // string music folder location
 		this.voice = null; // Voice Connection
+		this.vol = 1; // volume for the dispatcher
 		this.dispatcher = null; // Voice Dispatcher
  	}
 }
