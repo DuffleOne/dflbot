@@ -1,6 +1,5 @@
 export default async function join(context) {
-	const { app, message, client, args } = context;
-
+	const { message, args } = context;
 	let channel;
 
 	if (!args) {
@@ -13,7 +12,7 @@ export default async function join(context) {
 	}
 
 	if (!channel)
-		channel = client.channels.find('name', args);
+		channel = this.client.channels.find('name', args);
 
 	if (!channel) {
 		message.reply(`I can't find a channel named: ${args}.`);
@@ -27,6 +26,6 @@ export default async function join(context) {
 
 	const connection = await channel.join();
 
-	app.voice = connection;
+	this.voice = connection;
 	message.reply(`Joined ${channel.name}.`);
 }

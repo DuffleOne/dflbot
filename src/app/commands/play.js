@@ -1,36 +1,38 @@
 import fs from 'fs';
 
 export default function play(context) {
-	const { app, args, message } = context;
-	const { voice, dispatcher, musicFolder } = app;
+	const { args, message } = context;
 	const files = [];
 
-	fs.readdirSync(musicFolder).forEach(file => {
+	fs.readdirSync(this.musicFolder).forEach(file => {
 		const f = file.split('.');
 		f.pop();
 
 		files.push({ formatted: f.join('.'), original: file });
 	});
 
-	if (!voice) {
+	if (!this.voice) {
 		message.reply('I can only play music in a voice channel, use !join');
 		return;
 	}
 
 	// If we're "Paused" - just resume, don't start again
-	if (!args && dispatcher && voice) {
-		dispatcher.resume();
+	if (!args && this.dispatcher && this.voice) {
+		this.dispatcher.resume();
 		return
 ;	}
 
-	if (dispatcher) {
-		dispatcher.end();
-		app.dispatcher = null;
+	if (this.dispatcher) {
+		this.dispatcher.end();
+		this.dispatcher = null;
 	}
 
 	const fileToPlay = files.find(f => f.formatted === args);
 
-	if (!fileToPlay) return;
+	if (!fileToPlay) {
+		message.reply(`Can't find that song :S`);
+		return;
+	}
 
-	app.dispatcher = voice.playFile(`${app.musicFolder}/${fileToPlay.original}`);
+	this.dispatcher = this.voice.playFile(`${this.musicFolder}/${fileToPlay.original}`);
 }

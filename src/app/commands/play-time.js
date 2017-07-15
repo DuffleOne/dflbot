@@ -1,10 +1,9 @@
 const msInSeconds = 1000;
 
 export default function time(context) {
-	const { app, message } = context;
-	const { dispatcher } = app;
+	const { message } = context;
 
-	if (!dispatcher) {
+	if (!this.dispatcher) {
 		message.reply(`I'm not playing any music.`);
 		return;
 	}

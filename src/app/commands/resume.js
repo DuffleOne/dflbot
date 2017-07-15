@@ -1,11 +1,10 @@
 export default function pause(context) {
-	const { app, message } = context;
-	const { dispatcher } = app;
+	const { message } = context;
 
-	if (!dispatcher) {
+	if (!this.dispatcher) {
 		message.reply(`I'm not playing any music.`);
 		return;
 	}
 
-	dispatcher.resume();
+	this.dispatcher.resume();
 }

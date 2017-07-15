@@ -1,16 +1,15 @@
 export default async function leave(context) {
-	const { app, message, client } = context;
-	const { voice, dispatcher } = app;
+	const { message } = context;
 
-	if (!voice) return;
+	if (!this.voice) return;
 
-	if (dispatcher)
-		await dispatcher.end();
+	if (this.dispatcher)
+		await this.dispatcher.end();
 
-	await voice.disconnect();
+	await this.voice.disconnect();
 
-	app.voice = null;
-	app.dispatcher = null;
+	this.voice = null;
+	this.dispatcher = null;
 
 	message.reply(`Bye!`);
 }

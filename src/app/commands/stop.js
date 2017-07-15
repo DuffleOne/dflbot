@@ -1,13 +1,12 @@
 export default function stop(context) {
-	const { app, message } = context;
-	const { dispatcher } = app;
+	const { message } = context;
 
-	if (!dispatcher) {
+	if (!this.dispatcher) {
 		message.reply(`I'm not playing any music.`);
 		return;
 	}
 
-	dispatcher.end();
+	this.dispatcher.end();
 
-	app.dispatcher = null;
+	this.dispatcher = null;
 }

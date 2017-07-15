@@ -1,8 +1,8 @@
 import fs from 'fs';
 
 export default function list(context) {
-	const { app, message } = context;
-	const musicFolder = app.musicFolder;
+	const { message } = context;
+	const musicFolder = this.musicFolder;
 	const files = [];
 
 	fs.readdirSync(musicFolder).forEach(file => {
