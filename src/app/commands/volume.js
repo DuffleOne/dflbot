@@ -1,5 +1,7 @@
 const acceptedKeyWords = ['up', 'down', 'max', 'double'];
 
+const stepUp = 0.2;
+
 export default async function volume(ctx) {
 	const { message, args } = ctx;
 	const arg = args.toLowerCase();
@@ -23,10 +25,10 @@ export default async function volume(ctx) {
  			newVolume = 1;
  			break;
  		case 'up':
- 			newVolume += 0.1;
+ 			newVolume += stepUp;
  			break;
  		case 'down':
- 			newVolume -= 0.1;
+ 			newVolume -= stepUp;
  			break;
  		default:
  			newVolume = argAsNum;
