@@ -20,9 +20,7 @@ export default class Handler {
 			const [cmd, func, args] = command;
 			const normalizedFunc = func.toLowerCase();
 
-			const method = this.app[normalizedFunc];
-
-			if (!method)
+			if (typeof this.app[normalizedFunc] === 'undefined')
 				return;
 
 			const ctx = {
