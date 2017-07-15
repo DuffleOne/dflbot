@@ -6,7 +6,10 @@ export default function list(context) {
 	const files = [];
 
 	fs.readdirSync(musicFolder).forEach(file => {
-		files.push(file.slice(0, -4));
+		const f = file.split('.');
+
+		f.pop();
+		files.push(f.join('.'));
 	});
 
 	message.reply(`\n${files.join('\n')}`);
