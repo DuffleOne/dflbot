@@ -22,25 +22,23 @@ export default class App {
  			const content = message.content;
  			const command = content.match(commandRegex);
 
- 			if (command) {
- 				const [cmd, func, args] = command;
- 				const method = commands[func];
+ 			if (!command) return;
 
- 				if (!method)
- 					return;
+			const [cmd, func, args] = command;
+			const method = commands[func];
 
- 				const ctx = {
- 					app: this,
- 					client: this.client,
- 					message,
- 					name: func,
- 					args,
- 				};
+			if (!method)
+				return;
 
- 				return method(ctx);
- 			}
+			const ctx = {
+				app: this,
+				client: this.client,
+				message,
+				name: func,
+				args,
+			};
 
- 			return;
+			return method(ctx);
  		});
  	}
 
