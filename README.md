@@ -20,6 +20,7 @@ This is still heavily work in progress, just built it, so commands are constantl
 - stop
 - list (show a list of known songs)
 - playtime (current seconds into the song)
+- volume (control volume of song playing)
 
 ## Roadmap
 
