@@ -30,10 +30,21 @@ export default async function play(context) {
 		this.dispatcher = null;
 	}
 
-	const fileToPlay = files.find(f => f.formatted === args);
+	const fileToPlay = findFileOrRandom(args, files);
 
 	if (!fileToPlay)
 		throw new Error('cannot_find_song');
 
+	message.reply(`Playing: ${fileToPlay.formatted}.`);
 	this.dispatcher = this.voice.playFile(`${this.musicFolder}/${fileToPlay.original}`);
+}
+
+function findFileOrRandom(file, files) {
+	let fileToPlay = null;
+
+	fileToPlay = files.find(f => f.formatted === file);
+
+	if (fileToPlay) return fileToPlay;
+
+	return files[Math.floor(Math.random() * files.length)];
 }
