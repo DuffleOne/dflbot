@@ -1,3 +1,4 @@
+export { default as error } from './error';
 export { default as join } from './join';
 export { default as leave } from './leave';
 export { default as list } from './list';

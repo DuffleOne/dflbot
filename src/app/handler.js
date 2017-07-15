@@ -1,4 +1,5 @@
 const commandRegex = /^!(\S+)\s?(.*)$/;
+const errorCodes = require('../lang/errors.json');
 
 export default class Handler {
 	constructor(app, token) {
@@ -8,8 +9,8 @@ export default class Handler {
 		this.registerCommands();
 	}
 
-	registerCommands() {
-		this.app.client.on('message', message => {
+	async registerCommands() {
+		this.app.client.on('message', async message => {
 			if (!message.guild) return;
 
 			const content = message.content;
@@ -28,8 +29,43 @@ export default class Handler {
 				args,
 			};
 
-			this.app[normalizedFunc](ctx);
+			try {
+				await this.app[normalizedFunc](ctx);
+			} catch (error) {
+				await this.handleError(message, error);
+			}
 		});
+	}
+
+	async handleError(message, error) {
+		let errorCode;
+
+		switch (true) {
+			case (error instanceof Error):
+				errorCode = error.message;
+				break;
+			case (typeof error === 'string'):
+				errorCode = error;
+				break;
+			default:
+				errorCode = 'traditional_error';
+				break;
+		}
+
+		const friendlyMessage = this.getFriendlyMessage(errorCode);
+
+		message.reply(`Errror: ${friendlyMessage}`);
+
+		return;
+	}
+
+	getFriendlyMessage(errorCode) {
+		const friendlyMessage = errorCodes[errorCode];
+
+		if (!friendlyMessage)
+			return 'Something went wrong :S Not sure about it!';
+
+		return friendlyMessage;
 	}
 
 	run() {

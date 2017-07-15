@@ -10,10 +10,8 @@ export default async function volume(ctx) {
 
 	const argAsNum = parseInt(arg, 10) / 100;
 
-	if (!acceptedKeyWords.includes(arg) && !argAsNum) {
-		message.reply(`I don't understand sorry. use !volume <up|down|max|number>`);
-		return;
-	}
+	if (!acceptedKeyWords.includes(arg) && !argAsNum)
+		throw new Error('volume_bad_params');
 
  	switch (arg) {
  		case 'max':

@@ -15,8 +15,7 @@ export default async function play(context) {
 		try {
 			await this.join({ ...context, args: null });
 		} catch (error) {
-			message.reply(`Couldn't join a channel to play music :S`);
-			return;
+			throw new Error('cannot_join');
 		}
 	}
 
@@ -33,10 +32,8 @@ export default async function play(context) {
 
 	const fileToPlay = files.find(f => f.formatted === args);
 
-	if (!fileToPlay) {
-		message.reply(`Can't find that song :S`);
-		return;
-	}
+	if (!fileToPlay)
+		throw new Error('cannot_find_song');
 
 	this.dispatcher = this.voice.playFile(`${this.musicFolder}/${fileToPlay.original}`);
 }
