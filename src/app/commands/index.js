@@ -9,3 +9,4 @@ export { default as playtime } from './play-time';
 export { default as resume } from './resume';
 export { default as stop } from './stop';
 export { default as volume } from './volume';
+export { default as whoami } from './whoami';
