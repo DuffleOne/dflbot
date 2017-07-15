@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export default function play(context) {
+export default async function play(context) {
 	const { args, message } = context;
 	const files = [];
 
@@ -12,8 +12,12 @@ export default function play(context) {
 	});
 
 	if (!this.voice) {
-		message.reply('I can only play music in a voice channel, use !join');
-		return;
+		try {
+			await this.join({ ...context, args: null });
+		} catch (error) {
+			message.reply(`Couldn't join a channel to play music :S`);
+			return;
+		}
 	}
 
 	// If we're "Paused" - just resume, don't start again
