@@ -20,3 +20,7 @@ This is still heavily work in progress, just built it, so commands are constantl
 - stop
 - list (show a list of known songs)
 - playtime (current seconds into the song)
+
+## Roadmap
+
+The commands in the app directory are heavily tied into the Discord SDK, and for a project like this that will only ever be ran on Discord, it's not a bad thing. But it would be cool if the app methods returned some sort of common interface and it was picked up specifically by a Discord handler which then executed them.
