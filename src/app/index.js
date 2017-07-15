@@ -2,8 +2,9 @@ import * as Commands from './commands';
 
 export default class App {
 	constructor(context) {
-		const { client, musicFolder } = context;
+		const { client, musicFolder, admins } = context;
 
+		this.admins = admins;
 		this.client = client; // Discord SDK
 		this.musicFolder = musicFolder; // string music folder location
 		this.voice = null; // Voice Connection

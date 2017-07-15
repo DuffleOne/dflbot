@@ -1,8 +1,10 @@
-const acceptedKeyWords = ['up', 'down', 'max'];
+const acceptedKeyWords = ['up', 'down', 'max', 'double'];
 
 export default async function volume(ctx) {
 	const { message, args } = ctx;
 	const arg = args.toLowerCase();
+
+	const max = getMax(this, message.author.id);
 
 	let newVolume = this.vol;
 
@@ -14,6 +16,9 @@ export default async function volume(ctx) {
 		throw new Error('volume_bad_params');
 
  	switch (arg) {
+ 		case 'double':
+ 			newVolume = 2;
+ 			break;
  		case 'max':
  			newVolume = 1;
  			break;
@@ -28,9 +33,9 @@ export default async function volume(ctx) {
  			break;
  	}
 
- 	if (newVolume > 1) {
+ 	if (newVolume > max) {
  		message.reply(`I've giv'n her all she's got captain, an' I canna give her no more.`);
- 		newVolume = 1;
+ 		newVolume = max;
  	}
 
  	if (newVolume < 0)
@@ -41,3 +46,10 @@ export default async function volume(ctx) {
  	if (this.dispatcher)
  		this.dispatcher.setVolume(newVolume);
  }
+
+function getMax(app, authorId) {
+	if (app.admins.includes(authorId))
+		return 2;
+
+	return 1;
+}
