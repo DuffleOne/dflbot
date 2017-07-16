@@ -1,4 +1,5 @@
 import fs from 'fs';
+import request from 'request';
 
 export default async function play(context) {
 	const { args, message } = context;
@@ -30,6 +31,18 @@ export default async function play(context) {
 		this.dispatcher = null;
 	}
 
+	const urlMatch = args.match(/^url\s(.*)$/);
+
+	if (urlMatch) {
+		const [_, url] = urlMatch;
+		message.reply('Loading song from the URL, bear with me...');
+		const stream = request(url);
+
+		this.dispatcher = this.voice.playStream(stream);
+
+		return;
+	}
+
 	const fileToPlay = findFileOrRandom(args, files);
 
 	if (!fileToPlay)
@@ -44,7 +57,9 @@ function findFileOrRandom(file, files) {
 
 	fileToPlay = files.find(f => f.formatted === file);
 
-	if (fileToPlay) return fileToPlay;
+	if (fileToPlay)
+		return fileToPlay;
 
-	return files[Math.floor(Math.random() * files.length)];
+	if (!file)
+		return files[Math.floor(Math.random() * files.length)];
 }
