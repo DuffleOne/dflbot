@@ -3,24 +3,22 @@ import Discord from 'discord.js';
 import App from '../app';
 import Handler from '../app/handler';
 import Server from '../server';
+import config from '../../config.json';
 
 const port = 8080;
-
-const admins = [''];
-const client = new Discord.Client()
-const token = '';
-const musicFolder = 'C:\\Users\\George\\Downloads\\music\\';
+const client = new Discord.Client();
 
 const context  = {
-	admins,
+	admins: config.admin,
 	client,
-	musicFolder,
+	musicChannel: config.musicChannel,
+	musicFolder: config.musicFolder,
 };
 
 const run = async () => {
 	const app = new App(context);
 	const server = new Server(app, { port });
-	const handler = new Handler(app, token);
+	const handler = new Handler(app, config.token);
 
 	await server.setup();
 
