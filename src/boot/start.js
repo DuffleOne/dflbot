@@ -2,8 +2,11 @@ import 'babel-polyfill';
 import Discord from 'discord.js';
 import App from '../app';
 import Handler from '../app/handler';
+import Server from '../server';
 
-const admins = [];
+const port = 8080;
+
+const admins = [''];
 const client = new Discord.Client()
 const token = '';
 const musicFolder = 'C:\\Users\\George\\Downloads\\music\\';
@@ -14,7 +17,21 @@ const context  = {
 	musicFolder,
 };
 
-const app = new App(context);
-const handler = new Handler(app, token);
+const run = async () => {
+	const app = new App(context);
+	const server = new Server(app, { port });
+	const handler = new Handler(app, token);
 
-handler.run();
+	await server.setup();
+
+	handler.run();
+	server.run();
+}
+
+(async () => {
+	try {
+		await run();
+	} catch (error) {
+		console.error('start_failed', [error]);
+	}
+})();

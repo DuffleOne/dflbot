@@ -7,12 +7,17 @@
     "test": "echo \"no tests yet\" && exit 0"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "bufferutil": "^3.0.2",
+    "camelcase": "^4.1.0",
     "discord.js": "^11.1.0",
+    "express": "^4.15.3",
     "ffmpeg-binaries": "^3.2.2-3",
     "libsodium-wrappers": "^0.5.2",
     "node-opus": "^0.2.6",
     "request": "^2.81.0",
+    "snakeize": "^0.1.0",
+    "type-is": "^1.6.15",
     "uws": "^8.14.0"
   },
   "devDependencies": {

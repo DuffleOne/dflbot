@@ -40,7 +40,9 @@ export default async function play(context) {
 		if (!fileToPlay)
 			throw new Error('cannot_find_song');
 
-		message.reply(`Playing: ${fileToPlay.formatted}.`);
+		if (message)
+			message.reply(`Playing: ${fileToPlay.formatted}.`);
+
 		this.dispatcher = this.voice.playFile(`${this.musicFolder}/${fileToPlay.original}`, {
 			volume: this.vol,
 		});
@@ -48,7 +50,9 @@ export default async function play(context) {
 		return;
 	}
 
-	message.reply('Loading song from the URL, bear with me...');
+	if (message)
+		message.reply('Loading song from the URL, bear with me...');
+
 	const stream = request(args);
 
 	this.dispatcher = this.voice.playStream(stream, {
