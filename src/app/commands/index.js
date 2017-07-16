@@ -1,7 +1,6 @@
 export { default as error } from './error';
 export { default as join } from './join';
 export { default as leave } from './leave';
-export { default as list } from './list';
 export { default as pause } from './pause';
 export { default as ping } from './ping';
 export { default as play } from './play';
