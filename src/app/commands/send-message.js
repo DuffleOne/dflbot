@@ -23,7 +23,7 @@ export default async function sendMessage(ctx, originalMessage) {
 
 	if (musicChannel) {
 		this.musicChannel = musicChannel;
-		musicChannel.sendMessage(messageToSend);
+		musicChannel.send(messageToSend);
 		return;
 	}
 
