@@ -36,7 +36,7 @@ export default async function volume(ctx) {
  	}
 
  	if (newVolume > max) {
- 		message.reply(`I've giv'n her all she's got captain, an' I canna give her no more.`);
+ 		this.sendMessage(`I've giv'n her all she's got captain, an' I canna give her no more.`, message);
  		newVolume = max;
  	}
 

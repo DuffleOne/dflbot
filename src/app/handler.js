@@ -32,12 +32,12 @@ export default class Handler {
 			try {
 				await this.app[normalizedFunc](ctx);
 			} catch (error) {
-				await this.handleError(message, error);
+				await this.handleError(error, message);
 			}
 		});
 	}
 
-	async handleError(message, error) {
+	async handleError(error, message) {
 		let errorCode;
 
 		switch (true) {
@@ -54,7 +54,7 @@ export default class Handler {
 
 		const friendlyMessage = this.getFriendlyMessage(errorCode);
 
-		message.reply(`Errror: ${friendlyMessage}`);
+		this.app.sendMessage(`Errror: ${friendlyMessage}`, message);
 
 		return;
 	}

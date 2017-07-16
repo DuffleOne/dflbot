@@ -1,5 +1,9 @@
 export default async function whoami(ctx) {
 	const { message } = ctx;
+
+	if (!message)
+		throw new Error('discord_only');
+
 	const author = message.author;
 	const name = author.username;
 	const isAdmin = this.admins.includes(author.id);
@@ -9,5 +13,5 @@ export default async function whoami(ctx) {
 	if (isAdmin)
 		rplyMsg += ` You are an admin.`;
 
-	message.reply(rplyMsg);
+	this.sendMessage(rplyMsg, message);
 }

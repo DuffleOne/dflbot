@@ -1,5 +1,5 @@
 export default function ping(context) {
 	const { message } = context;
 
-	message.reply('pong!');
+	this.sendMessage('pong!', message);
 }

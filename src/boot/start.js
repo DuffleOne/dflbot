@@ -9,10 +9,10 @@ const port = 8080;
 const client = new Discord.Client();
 
 const context  = {
-	admins: config.admin,
+	admins: config.admins,
 	client,
 	musicChannel: config.musicChannel,
-	musicFolder: config.musicFolder,
+	serverId: config.serverId,
 };
 
 const run = async () => {

@@ -19,7 +19,4 @@ export default async function join(context) {
 		throw new Error('cannot_join');
 
 	this.voice = await channel.join();
-
-	if (message)
-		message.reply(`Joined ${channel.name}.`);
 }

@@ -5,13 +5,6 @@ export default async function play(context) {
 	const { args, message } = context;
 	const files = [];
 
-	fs.readdirSync(this.musicFolder).forEach(file => {
-		const f = file.split('.');
-		f.pop();
-
-		files.push({ formatted: f.join('.'), original: file });
-	});
-
 	if (!this.voice) {
 		try {
 			await this.join({ ...context, args: null });
@@ -31,27 +24,7 @@ export default async function play(context) {
 		this.dispatcher = null;
 	}
 
-	const localMatch = args.match(/^local\s(.*)$/);
-
-	if (localMatch) {
-		const [_, fileName] = localMatch;
-		const fileToPlay = findFileOrRandom(fileName, files);
-
-		if (!fileToPlay)
-			throw new Error('cannot_find_song');
-
-		if (message)
-			message.reply(`Playing: ${fileToPlay.formatted}.`);
-
-		this.dispatcher = this.voice.playFile(`${this.musicFolder}/${fileToPlay.original}`, {
-			volume: this.vol,
-		});
-
-		return;
-	}
-
-	if (message)
-		message.reply('Loading song from the URL, bear with me...');
+	this.sendMessage('Loading song from the URL, bear with me...', message);
 
 	const stream = request(args);
 
@@ -59,17 +32,7 @@ export default async function play(context) {
 		volume: this.vol,
 	});
 
+	this.sendMessage('Playing new song...'); // TODO: Better message here
+
 	return;
-}
-
-function findFileOrRandom(file, files) {
-	if (!file)
-		return files[Math.floor(Math.random() * files.length)];
-
-	let fileToPlay = null;
-
-	fileToPlay = files.find(f => f.formatted === file);
-
-	if (fileToPlay)
-		return fileToPlay;
 }

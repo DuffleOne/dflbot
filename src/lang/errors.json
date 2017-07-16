@@ -6,5 +6,6 @@
 	"cannot_join": "Sorry, I can't join that channel",
 	"not_playing_music": "I'm not playing any music",
 	"cannot_find_song": "I don't seem to have that song",
-	"volume_bad_params": "I don't understand sorry. use !volume <up|down|max|number>"
+	"volume_bad_params": "I don't understand sorry. use !volume <up|down|max|number>",
+	"discord_only": "This command can only be ran in Discord"
 }

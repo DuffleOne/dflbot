@@ -6,6 +6,8 @@ export { default as ping } from './ping';
 export { default as play } from './play';
 export { default as playtime } from './play-time';
 export { default as resume } from './resume';
+export { default as sendMessage } from './send-message';
 export { default as stop } from './stop';
+export { default as use } from './use';
 export { default as volume } from './volume';
 export { default as whoami } from './whoami';

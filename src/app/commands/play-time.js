@@ -6,7 +6,7 @@ export default function time(context) {
 	if (!this.dispatcher)
 		throw new Error('not_playing_music');
 
-	const seconds = (dispatcher.time / msInSeconds).toFixed(2);
+	const seconds = (this.dispatcher.time / msInSeconds).toFixed(2);
 
-	message.reply(`Song is at ${seconds} seconds.`);
+	this.sendMessage(`Song is at ${seconds} seconds.`, message);
 }
