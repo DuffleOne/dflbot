@@ -24,7 +24,7 @@ const run = async () => {
 
 	handler.run();
 	server.run();
-}
+};
 
 (async () => {
 	try {

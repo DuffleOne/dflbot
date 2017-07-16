@@ -17,7 +17,7 @@ export default async function play(context) {
 	if (!args && this.dispatcher && this.voice) {
 		this.dispatcher.resume();
 		return
-;	}
+	}
 
 	if (this.dispatcher) {
 		this.dispatcher.end();

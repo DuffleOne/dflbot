@@ -10,7 +10,7 @@ export default async function sendMessage(ctx, originalMessage) {
 	}
 
 	if (this.musicChannel) {
-		this.musicChannel.sendMessage(messageToSend);
+		this.musicChannel.send(messageToSend);
 		return;
 	}
 
