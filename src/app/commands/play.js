@@ -31,35 +31,41 @@ export default async function play(context) {
 		this.dispatcher = null;
 	}
 
-	const urlMatch = args.match(/^url\s(.*)$/);
+	const localMatch = args.match(/^local\s(.*)$/);
 
-	if (urlMatch) {
-		const [_, url] = urlMatch;
-		message.reply('Loading song from the URL, bear with me...');
-		const stream = request(url);
+	if (localMatch) {
+		const [_, fileName] = localMatch;
+		const fileToPlay = findFileOrRandom(fileName, files);
 
-		this.dispatcher = this.voice.playStream(stream);
+		if (!fileToPlay)
+			throw new Error('cannot_find_song');
+
+		message.reply(`Playing: ${fileToPlay.formatted}.`);
+		this.dispatcher = this.voice.playFile(`${this.musicFolder}/${fileToPlay.original}`, {
+			volume: this.vol,
+		});
 
 		return;
 	}
 
-	const fileToPlay = findFileOrRandom(args, files);
+	message.reply('Loading song from the URL, bear with me...');
+	const stream = request(args);
 
-	if (!fileToPlay)
-		throw new Error('cannot_find_song');
+	this.dispatcher = this.voice.playStream(stream, {
+		volume: this.vol,
+	});
 
-	message.reply(`Playing: ${fileToPlay.formatted}.`);
-	this.dispatcher = this.voice.playFile(`${this.musicFolder}/${fileToPlay.original}`);
+	return;
 }
 
 function findFileOrRandom(file, files) {
+	if (!file)
+		return files[Math.floor(Math.random() * files.length)];
+
 	let fileToPlay = null;
 
 	fileToPlay = files.find(f => f.formatted === file);
 
 	if (fileToPlay)
 		return fileToPlay;
-
-	if (!file)
-		return files[Math.floor(Math.random() * files.length)];
 }
